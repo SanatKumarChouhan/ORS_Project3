@@ -106,7 +106,7 @@
 			<div style="margin-left: 87%;" class="pb-2">
 
 				<a href="/project_3/ctl/JasperCtl" class="btn btn-lg btn-warning"
-					role="button" target="blank"> <span class="fa fa-print mr-1"></span>Print
+					role="button" target="blank"> <span class="fa fa-print mr-7"></span>Print
 				</a>
 			</div>
 			<div style="margin-bottom: 20px;" class="table-responsive">

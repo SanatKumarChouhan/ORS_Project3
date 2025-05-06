@@ -12,7 +12,8 @@
 	width: 100%;
 	color: white;
 	text-align: center;
-	background-color: #716c6c;
+	/* background-color: #716c6c; */
+	background-image: linear-gradient(to bottom left, Orange, white, Green);
 }
 </style>
 </head>

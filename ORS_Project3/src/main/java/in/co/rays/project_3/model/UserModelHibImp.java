@@ -113,7 +113,7 @@ public class UserModelHibImp implements UserModelInt {
 		Transaction tx = null;
 		UserDTO exesistDto = findByLogin(dto.getLogin());
 
-		if (exesistDto != null && exesistDto.getId() != dto.getId()) {
+		if (exesistDto != null && !(exesistDto.getId() == dto.getId())) {
 			throw new DuplicateRecordException("Login id already exist");
 		}
 
@@ -174,7 +174,7 @@ public class UserModelHibImp implements UserModelInt {
 			Criteria criteria = session.createCriteria(UserDTO.class);
 			criteria.add(Restrictions.eq("login", login));
 			List list = criteria.list();
-			if (list.size() == 1){
+			if (list.size() == 1) {
 				dto = (UserDTO) list.get(0);
 			}
 		} catch (HibernateException e) {
@@ -284,7 +284,7 @@ public class UserModelHibImp implements UserModelInt {
 				if (dto.getGender() != null && dto.getGender().length() > 0) {
 					criteria.add(Restrictions.like("gender", dto.getGender() + "%"));
 				}
-				if (dto.getDob() != null && dto.getDob().getDate() > 0) {
+				if (dto.getDob() != null && dto.getDob().getTime() > 0) {
 					criteria.add(Restrictions.like("dob", dto.getDob()));
 				}
 				if (dto.getLastLogin() != null && dto.getLastLogin().getTime() > 0) {

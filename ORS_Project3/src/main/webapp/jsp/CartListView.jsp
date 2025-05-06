@@ -1,10 +1,11 @@
+<%@page import="in.co.rays.project_3.dto.CartDTO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="in.co.rays.project_3.model.ModelFactory"%>
 <%@page import="in.co.rays.project_3.model.RoleModelInt"%>
 <%@page import="in.co.rays.project_3.util.DataUtility"%>
-<%@page import="in.co.rays.project_3.controller.UserListCtl"%>
+<%@page import="in.co.rays.project_3.controller.CartListCtl"%>
 <%@page import="in.co.rays.project_3.util.HTMLUtility"%>
 <%@page import="in.co.rays.project_3.util.ServletUtility"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -14,7 +15,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>User List</title>
+<title>Cart List</title>
 <script src="<%=ORSView.APP_CONTEXT%>/js/jquery.min.js"></script>
 <script type="text/javascript"
 	src="<%=ORSView.APP_CONTEXT%>/js/CheckBox11.js"></script>
@@ -43,12 +44,12 @@
 	<%@include file="calendar.jsp"%>
 	<div></div>
 	<div>
-		<form class="pb-5" action="<%=ORSView.USER_LIST_CTL%>" method="post">
-			<jsp:useBean id="dto" class="in.co.rays.project_3.dto.UserDTO"
+		<form class="pb-5" action="<%=ORSView.CART_LIST_CTL%>" method="post">
+			<jsp:useBean id="dto" class="in.co.rays.project_3.dto.CartDTO"
 				scope="request"></jsp:useBean>
 			<%
-				List list1 = (List) request.getAttribute("roleList");
-				List uList = (List) request.getAttribute("uList");
+				HashMap map = (HashMap) request.getAttribute("productList");
+				/* List uList = (List) request.getAttribute("cartList"); */
 			%>
 
 
@@ -57,17 +58,15 @@
 				int pageSize = ServletUtility.getPageSize(request);
 				int index = ((pageNo - 1) * pageSize) + 1;
 				int nextPageSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
-				RoleDTO rbean1 = new RoleDTO();
-				RoleModelInt rmodel = ModelFactory.getInstance().getRoleModel();
 
 				List list = ServletUtility.getList(request);
 
-				Iterator<UserDTO> it = list.iterator();
+				Iterator<CartDTO> it = list.iterator();
 				if (list.size() != 0) {
 			%>
 			<center>
 				<h1 class="text-primary font-weight-bold pt-3">
-					<b>User List</b>
+					<u>Cart List</u>
 				</h1>
 			</center>
 			<div class="row">
@@ -109,11 +108,11 @@
 			<div class="row">
 
 
-				<div class="col-sm-1"></div>
+				<div class="col-sm-2"></div>
 				<div class="col-sm-2">
-					<input type="text" name="firstName" placeholder="Enter First Name"
-						class="form-control"
-						value="<%=ServletUtility.getParameter("firstName", request)%>">
+					<input type="text" name="customerName"
+						placeholder="Enter Customer Name" class="form-control"
+						value="<%=ServletUtility.getParameter("customerName", request)%>">
 				</div>
 
 				<%-- &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
@@ -132,23 +131,23 @@
 
 
 				&emsp;
-				<div class="col-sm-2">
-					<input type="text" name="login" placeholder="Enter Login Id"
+				<%-- <div class="col-sm-2">
+					<input type="text" name="product" placeholder="Enter Product Name"
 						class="form-control"
-						value="<%=ServletUtility.getParameter("login", request)%>">
-				</div>
+						value="<%=ServletUtility.getParameter("product", request)%>">
+				</div> --%>
 				&emsp;
-				<div class="col-sm-2"><%=HTMLUtility.getList("Role", String.valueOf(dto.getRoleId()), list1)%></div>
+				<div class="col-sm-2"><%=HTMLUtility.getList2("product", String.valueOf(dto.getProductName()), map)%></div>
 				&emsp;
 				<%-- &emsp;
 				<div class="col-sm-2"><%=HTMLUtility.getList("fName", String.valueOf(dto.getFirstName()), uList)%></div>
 				&emsp; --%>
 
 				<div class="col-sm-2">
-					<input type="text" name="dob" class="form-control"
-						placeholder="Enter Date Of Birth" id="datepicker"
+					<input type="text" name="tDate" class="form-control"
+						placeholder="Enter Transaction Date" id="datepicker3"
 						readonly="readonly"
-						value="<%=DataUtility.getDateString(dto.getDob())%>">
+						value="<%=DataUtility.getDateString(dto.getTransactionDate())%>">
 				</div>
 				<%-- <div class="col-sm-2">
 					<input type="text" name="dob" class="form-control" placeholder="Enter Date Of Birth"
@@ -158,9 +157,9 @@
 				<div class="col-sm-2">
 					<input type="submit" class="btn btn-primary btn-md"
 						style="font-size: 15px" name="operation"
-						value="<%=UserListCtl.OP_SEARCH%>"> &emsp; <input
+						value="<%=CartListCtl.OP_SEARCH%>"> &emsp; <input
 						type="submit" class="btn btn-dark btn-md" style="font-size: 15px"
-						name="operation" value="<%=UserListCtl.OP_RESET%>">
+						name="operation" value="<%=CartListCtl.OP_RESET%>">
 				</div>
 
 
@@ -171,42 +170,33 @@
 			<div style="margin-bottom: 20px;" class="table-responsive">
 				<table class="table table-bordered table-dark table-hover">
 					<thead>
-						<tr style="background-color: grey;">
+						<tr style="background-color: blue;">
 
 							<th width="10%"><input type="checkbox" id="select_all"
 								name="Select" class="text"> Select All</th>
 							<th width="5%" class="text">S.NO</th>
-							<th width="15%" class="text">FirstName</th>
-							<th width="15%" class="text">LastName</th>
-							<th width="20%" class="text">LoginId</th>
-							<th width="10%" class="text">Gender</th>
-							<th width="10%" class="text">Role</th>
-							<th width="10%" class="text">DOB</th>
+							<th width="15%" class="text">CustomerName</th>
+							<th width="15%" class="text">ProductName</th>
+							<th width="20%" class="text">TransactionDate</th>
+							<th width="10%" class="text">ProductQuantity</th>
 							<th width="5%" class="text">Edit</th>
 						</tr>
 					</thead>
 					<%
 						while (it.hasNext()) {
 								dto = it.next();
-
-								RoleDTO rbean = rmodel.findByPK(dto.getRoleId());
 					%>
 					<tbody>
 						<tr>
 							<td align="center"><input type="checkbox" class="checkbox"
-								name="ids" value="<%=dto.getId()%>"
-								<%if (dto.getRoleId() == RoleDTO.ADMIN) {%> <%="disabled"%>
-								<%}%>></td>
+								name="ids" value="<%=dto.getId()%>"></td>
 							<td class="text"><%=index++%></td>.
-							<td class="text"><%=dto.getFirstName()%></td>
-							<td class="text"><%=dto.getLastName()%></td>
-							<td class="text"><%=dto.getLogin()%></td>
-							<td class="text"><%=dto.getGender()%></td>
-							<td class="text"><%=rbean.getName()%></td>
-							<td class="text"><%=DataUtility.getDateString(dto.getDob())%></td>
-							<td class="text"><a href="UserCtl?id=<%=dto.getId()%>"
-								<%if (dto.getRoleId() == RoleDTO.ADMIN) {%>
-								onclick="return false;" <%}%>>Edit</a></td>
+							<td class="text"><%=dto.getCustomerName()%></td>
+							<td class="text"><%=map.get(Integer.parseInt(dto.getProductName()))%></td>
+							<td class="text"><%=DataUtility.getDateString(dto.getTransactionDate())%></td>
+							<td class="text"><%=dto.getProductQuantity()%></td>
+
+							<td class="text"><a href="CartCtl?id=<%=dto.getId()%>">Edit</a></td>
 						</tr>
 					</tbody>
 					<%
@@ -218,20 +208,20 @@
 				<tr>
 					<td><input type="submit" name="operation"
 						class="btn btn-warning btn-md" style="font-size: 17px"
-						value="<%=UserListCtl.OP_PREVIOUS%>"
+						value="<%=CartListCtl.OP_PREVIOUS%>"
 						<%=pageNo > 1 ? "" : "disabled"%>></td>
 
 					<td><input type="submit" name="operation"
 						class="btn btn-primary btn-md" style="font-size: 17px"
-						value="<%=UserListCtl.OP_NEW%>"></td>
+						value="<%=CartListCtl.OP_NEW%>"></td>
 
 					<td><input type="submit" name="operation"
 						class="btn btn-danger btn-md" style="font-size: 17px"
-						value="<%=UserListCtl.OP_DELETE%>"></td>
+						value="<%=CartListCtl.OP_DELETE%>"></td>
 
 					<td align="right"><input type="submit" name="operation"
 						class="btn btn-warning btn-md" style="font-size: 17px"
-						style="padding: 5px;" value="<%=UserListCtl.OP_NEXT%>"
+						style="padding: 5px;" value="<%=CartListCtl.OP_NEXT%>"
 						<%=(nextPageSize != 0) ? "" : "disabled"%>></td>
 				</tr>
 				<tr></tr>
@@ -281,7 +271,7 @@
 				<div style="padding-left: 48%;">
 					<input type="submit" name="operation"
 						class="btn btn-primary btn-md" style="font-size: 17px"
-						value="<%=UserListCtl.OP_BACK%>">
+						value="<%=CartListCtl.OP_BACK%>">
 				</div>
 
 				<div class="col-md-4"></div>

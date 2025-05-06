@@ -7,6 +7,9 @@ public interface ORSView {
 
 	public String JAVA_DOC_VIEW = APP_CONTEXT + "/doc/index.html";
 
+	/*----------------------------jsp's---------------------------------*/
+	/*----------------------------jsp's---------------------------------*/
+
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView404.jsp";
 	public String Employee_VIEW = PAGE_FOLDER + "/EmployeeView.jsp";
 	public String Employee_LIST_VIEW = PAGE_FOLDER + "/EmployeeListView.jsp";
@@ -41,12 +44,16 @@ public interface ORSView {
 	public String TIMETABLE_LIST_VIEW = PAGE_FOLDER + "/TimeTableListView.jsp";
 	public String SUBJECT_VIEW = PAGE_FOLDER + "/SubjectView.jsp";
 	public String SUBJECT_LIST_VIEW = PAGE_FOLDER + "/SubjectListView.jsp";
-	
-	
-	public String ERROR_CTL = APP_CONTEXT +"/ErrorCtl";
+
+	public String CART_LIST_VIEW = PAGE_FOLDER + "/CartListView.jsp";
+	public String CART_VIEW = PAGE_FOLDER + "/CartView.jsp";
+
+	/*--------------------------------ctl's-------------------------------------------*/
+	/*--------------------------------ctl's-------------------------------------------*/
+	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
 	public String Employee_CTL = APP_CONTEXT + "/ctl/EmployeeCtl";
 	public String Employee_LIST_CTL = APP_CONTEXT + "/ctl/EmployeeListCtl";
-	
+
 	public String BANK_CTL = APP_CONTEXT + "/ctl/BankCtl";
 	public String BANK_LIST_CTL = APP_CONTEXT + "/ctl/BankListCtl";
 	public String MARKSHEET_CTL = APP_CONTEXT + "/ctl/MarksheetCtl";
@@ -62,7 +69,7 @@ public interface ORSView {
 	public String USER_REGISTRATION_CTL = APP_CONTEXT + "/UserRegistrationCtl";
 	public String LOGIN_CTL = APP_CONTEXT + "/LoginCtl";
 	public String WELCOME_CTL = APP_CONTEXT + "/WelcomeCtl";
-	
+
 	public String FACULTY_CTL = APP_CONTEXT + "/ctl/FacultyCtl";
 	public String FACULTY_LIST_CTL = APP_CONTEXT + "/ctl/FacultyListCtl";
 	public String COURSE_CTL = APP_CONTEXT + "/ctl/CourseCtl";
@@ -71,11 +78,14 @@ public interface ORSView {
 	public String SUBJECT_LIST_CTL = APP_CONTEXT + "/ctl/SubjectListCtl";
 	public String TIMETABLE_CTL = APP_CONTEXT + "/ctl/TimeTableCtl";
 	public String TIMETABLE_LIST_CTL = APP_CONTEXT + "/ctl/TimeTableListCtl";
-	
-	
+
 	public String GET_MARKSHEET_CTL = APP_CONTEXT + "/ctl/GetMarksheetCtl";
 	public String CHANGE_PASSWORD_CTL = APP_CONTEXT + "/ctl/ChangePasswordCtl";
 	public String MY_PROFILE_CTL = APP_CONTEXT + "/ctl/MyProfileCtl";
 	public String FORGET_PASSWORD_CTL = APP_CONTEXT + "/ForgetPasswordCtl";
 	public String MARKSHEET_MERIT_LIST_CTL = APP_CONTEXT + "/ctl/MarksheetMeritListCtl";
+
+	public String CART_LIST_CTL = APP_CONTEXT + "/ctl/CartListCtl";
+	public String CART_CTL = APP_CONTEXT + "/ctl/CartCtl";
+
 }
